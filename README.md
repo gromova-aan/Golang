@@ -95,6 +95,7 @@ curl --location 'http://localhost:8080/api/v1/calculate' \
 Для запуска тестов проекта выполните следующую команду:
 
 ```bash
+ cd calc-go/internal/application/
 go test -v
 ```
 Эта команда выполнит тесты и выведет подробный результат.
