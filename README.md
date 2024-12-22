@@ -94,6 +94,7 @@ go test -v -run TestCalculateHandler
 ```
 
 Структура проекта:
+```bash
 calc-go/
 │
 ├── cmd/
@@ -110,3 +111,4 @@ calc-go/
 │
 └── response/
     └── response.go            # Структуры запросов и ответов
+```
