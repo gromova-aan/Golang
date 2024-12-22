@@ -53,19 +53,23 @@ go run cmd/main.go
 ```
 ## API Эндпоинты
 POST /api/v1/calculate
+
 Этот эндпоинт принимает POST-запрос с JSON-телом, содержащим математическое выражение в инфиксной нотации. Сервер вычисляет выражение и возвращает результат в формате JSON.
+
 Пример тела запроса:
 
 ```bash
-{
-  "expression": "3 + 5"
-}
+curl --location 'http://localhost:8080/api/v1/calculate' \
+--header 'Content-Type: application/json' \
+--data '{
+  "expression": "2+2*2"
+}'
 ```
 Пример тела ответа: код 200 ОК
 
 ```bash
 {
-  "result": "8.00"
+  "result": "6.00"
 }
 ```
 Ошибки:
