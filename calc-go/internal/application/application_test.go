@@ -13,6 +13,11 @@ import (
 )
 
 func TestCalculateHandler(t *testing.T) {
+	// Создаем конфигурацию и приложение
+	config := &application.Config{Addr: "8080"}
+	app := application.New(config)
+
+	// Создаем валидный запрос
 	validRequest := response.RequestBody{
 		Expression: "3 + 5",
 	}
@@ -25,7 +30,7 @@ func TestCalculateHandler(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/api/v1/calculate", bytes.NewReader(reqBody))
 	rr := httptest.NewRecorder()
 
-	handler := http.HandlerFunc(application.CalculateHandler)
+	handler := http.HandlerFunc(app.CalculateHandler)
 	handler.ServeHTTP(rr, req)
 
 	assert.Equal(t, http.StatusOK, rr.Code)
@@ -41,6 +46,11 @@ func TestCalculateHandler(t *testing.T) {
 }
 
 func TestInvalidExpression(t *testing.T) {
+	// Создаем конфигурацию и приложение
+	config := &application.Config{Addr: "8080"}
+	app := application.New(config)
+
+	// Создаем некорректный запрос
 	invalidRequest := response.RequestBody{
 		Expression: "10 / 0",
 	}
@@ -53,7 +63,7 @@ func TestInvalidExpression(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/api/v1/calculate", bytes.NewReader(reqBody))
 	rr := httptest.NewRecorder()
 
-	handler := http.HandlerFunc(application.CalculateHandler)
+	handler := http.HandlerFunc(app.CalculateHandler)
 	handler.ServeHTTP(rr, req)
 
 	assert.Equal(t, http.StatusUnprocessableEntity, rr.Code)
@@ -69,16 +79,26 @@ func TestInvalidExpression(t *testing.T) {
 }
 
 func TestInvalidMethod(t *testing.T) {
+	// Создаем конфигурацию и приложение
+	config := &application.Config{Addr: "8080"}
+	app := application.New(config)
+
+	// Отправляем запрос с некорректным методом
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/calculate", nil)
 	rr := httptest.NewRecorder()
 
-	handler := http.HandlerFunc(application.CalculateHandler)
+	handler := http.HandlerFunc(app.CalculateHandler)
 	handler.ServeHTTP(rr, req)
 
 	assert.Equal(t, http.StatusMethodNotAllowed, rr.Code)
 }
 
 func TestEmptyExpression(t *testing.T) {
+	// Создаем конфигурацию и приложение
+	config := &application.Config{Addr: "8080"}
+	app := application.New(config)
+
+	// Создаем запрос с пустым выражением
 	emptyRequest := response.RequestBody{
 		Expression: "",
 	}
@@ -91,7 +111,7 @@ func TestEmptyExpression(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/api/v1/calculate", bytes.NewReader(reqBody))
 	rr := httptest.NewRecorder()
 
-	handler := http.HandlerFunc(application.CalculateHandler)
+	handler := http.HandlerFunc(app.CalculateHandler)
 	handler.ServeHTTP(rr, req)
 
 	assert.Equal(t, http.StatusUnprocessableEntity, rr.Code)
