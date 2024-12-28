@@ -22,7 +22,7 @@
 1. Клонируйте этот репозиторий:
 
     ```bash
-    git clone https://github.com/gromova-aan/Golang/calc-go.git
+    git clone https://github.com/gromova-aan/Golang.git
     ```
 
 2. Перейдите в каталог проекта:
